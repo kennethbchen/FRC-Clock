@@ -6,10 +6,15 @@ const cdBase = "https://www.chiefdelphi.com/media/img/";
 const imgurBase = "https://i.imgur.com/"
 const teamHTTP = new XMLHttpRequest();
 const mediaHTTP = new XMLHttpRequest();
-const content = document.getElementById("display");
+
+const timeHeader = document.getElementById("24HrTime");
+const twelveTimeHeader = document.getElementById("12HrTime")
+const teamDataHeader = document.getElementById("data");
 const images = document.getElementById("images");
 
-content.innerHTML = getTime();
+const imgStyle = ("border: 3px solid #C41720; border-radius: 5px; margin: 4px;"); //ED1B24
+
+timeHeader.innerHTML = getTime();
 var time = getTime() + " ";
 var team;
 
@@ -42,12 +47,21 @@ function getTime()  {
 	
   }
 
-function setTimeWithTeam(teamData){
-	content.innerHTML = "The time is " + teamData;
+function getTwelveTime(){
+	var d = new Date();
+
+	return d.toLocaleTimeString();
+}
+
+function setTimeWithTeam(teamData,localeData){
+	timeHeader.innerHTML = teamData;
+	teamDataHeader.innerHTML = localeData;
 }
 
 function setTime(){
-	content.innerHTML = "The time is just " + getTime() + ". No team found :(";
+	timeHeader.innerHTML = getTime();
+	teamDataHeader.innerHTML = "No team found :(";
+
 }
 
 function removeTrailingZeros(value){
@@ -59,6 +73,7 @@ function removeTrailingZeros(value){
 }
 
 setInterval(function(){
+	twelveTimeHeader.innerHTML = getTwelveTime();	
 	if(getTime() != time){
 		time = getTime();
 		if(time.length == 4){
@@ -76,17 +91,25 @@ setInterval(function(){
 		getMedia(url);
 		
 	}
-}, 500);
+}, 1000);
 
 teamHTTP.onreadystatechange = function(){
 	if(this.readyState == 4 && this.status==200){
 		var response = teamHTTP.responseText.toString();
 		var obj = JSON.parse(response);
-			setTimeWithTeam(getTime() + " - " + obj.nickname + " from " + obj.city + ", " + obj.state_prov);
+		
+		var city = " from " + obj.city + ", ";
+		var state = obj.state_prov;
+		if(city.includes(null)){
+			city = "";
+			state = " from " + obj.state_prov;
+		}
+		
+		setTimeWithTeam(getTime(), obj.nickname + city + state);
 		
 	} else {
 		setTime();
-	}	
+	}
 }
 
 mediaHTTP.onreadystatechange = function(){
@@ -97,17 +120,20 @@ mediaHTTP.onreadystatechange = function(){
 		if(obj.length > 0){
 	
 			for(var i = 0; i < obj.length; i++){
+				
 				if(obj[i].type === "imgur"){
 					var img = document.createElement("img");
 					img.setAttribute("id", "imgur" + i);
-					img.setAttribute("height", 400);
+					img.setAttribute("height", 300);
 					img.setAttribute("src", imgurBase + obj[i].foreign_key + ".png");
+					img.setAttribute("style", imgStyle);
 					images.appendChild(img);
 				} else if(obj[i].type === "cdphotothread") {
 					var img = document.createElement("img");
 					img.setAttribute("id", "chief" + i);
-					img.setAttribute("height", 400);
+					img.setAttribute("height", 300);
 					img.setAttribute("src", cdBase + obj[i].details.image_partial);
+					img.setAttribute("style", imgStyle);
 					images.appendChild(img);
 				}
 
