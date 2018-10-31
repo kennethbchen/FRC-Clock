@@ -1,6 +1,7 @@
 const apiKey = "vFH9oG43F0qZFQCGWOGIhXe53yDLf0qZVeg0EjfYrSzEiNbSZYBNXZzNLj8JKtiL"; //Very unsafe
 const baseURL = "https://www.thebluealliance.com/api/v3";
 const teamURL = "/team/frc";
+const mediaURL = "/media/2018"
 const cdBase = "https://www.chiefdelphi.com/media/img/";
 const imgurBase = "https://i.imgur.com/"
 const teamHTTP = new XMLHttpRequest();
@@ -32,9 +33,8 @@ function getTime()  {
 		minutes = "0" + minutes;
 	}
 	var parse = hours + ":" + minutes;
-	
+
 	if(parse.lastIndexOf(":") === 4){
-		
 		return (parse.substring(0,4));
 	} else {
 		return (parse.substring(0,5));
@@ -50,6 +50,14 @@ function setTime(){
 	content.innerHTML = "The time is just " + getTime() + ". No team found :(";
 }
 
+function removeTrailingZeros(value){
+	if(value[0] === "0"){
+		return removeTrailingZeros(value.substring(1));
+	} else {
+		return value;
+	}
+}
+
 setInterval(function(){
 	if(getTime() != time){
 		time = getTime();
@@ -58,11 +66,13 @@ setInterval(function(){
 		} else {
 			team = getTime().substring(0,2) + getTime().substring(3,56);
 		}
+
+		team = removeTrailingZeros(team);
+
 		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
-		//console.log( "Team URL" + url);
 		getTeam(url);
-		url = baseURL + "/team/frc" + team + "/media/2018" + '?X-TBA-Auth-Key=' + apiKey;
-		console.log(url);
+
+		url = baseURL + teamURL + team + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
 		getMedia(url);
 		
 	}
@@ -99,7 +109,6 @@ mediaHTTP.onreadystatechange = function(){
 					img.setAttribute("height", 400);
 					img.setAttribute("src", cdBase + obj[i].details.image_partial);
 					images.appendChild(img);
-					console.log(cdBase + obj[i].details.image_partail);
 				}
 
 
@@ -108,7 +117,7 @@ mediaHTTP.onreadystatechange = function(){
 
 
 		} else {
-			images.innerHTML = "No Imgur or CD Images Found :(";
+			images.innerHTML = "No Imgur or Chief Delphi Images Found :(";
 		}
 	}
 }
