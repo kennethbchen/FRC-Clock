@@ -4,6 +4,7 @@ const teamURL = "/team/frc";
 const mediaURL = "/media/2018"
 const cdBase = "https://www.chiefdelphi.com/media/img/";
 const imgurBase = "https://i.imgur.com/"
+const youtubeBase = "https://youtube.com/embed/"
 const teamHTTP = new XMLHttpRequest();
 const mediaHTTP = new XMLHttpRequest();
 
@@ -79,7 +80,7 @@ setInterval(function(){
 		if(time.length == 4){
 			team = getTime().substring(0,1) + getTime().substring(2);
 		} else {
-			team = getTime().substring(0,2) + getTime().substring(3,56);
+			team = getTime().substring(0,2) + getTime().substring(3,5);
 		}
 
 		team = removeTrailingZeros(team);
@@ -87,7 +88,8 @@ setInterval(function(){
 		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
 		getTeam(url);
 
-		url = baseURL + teamURL + team + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
+		url = baseURL + teamURL + 1433 + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
+		console.log(url);
 		getMedia(url);
 		
 	}
@@ -135,18 +137,41 @@ mediaHTTP.onreadystatechange = function(){
 					img.setAttribute("src", cdBase + obj[i].details.image_partial);
 					img.setAttribute("style", imgStyle);
 					images.appendChild(img);
+				} else if(obj[i].type === "youtube"){
+					console.log(youtubeBase + obj[i].foreign_key);
+					var vid = document.createElement("iframe");
+					vid.setAttribute("id", "you"+1);
+					vid.setAttribute("height", 300);
+					vid.setAttribute("src", youtubeBase + obj[i].foreign_key);
+					vid.setAttribute("style", imgStyle);
+					images.appendChild(vid);
 				}
 
 
 			}
-
-
-
 		} else {
-			images.innerHTML = "No Imgur or Chief Delphi Images Found :(";
+			images.innerHTML = "No Imgur or Chief Delphi Images Found";
+			var img = document.createElement("img");
+					img.setAttribute("id", "pikachu");
+					img.setAttribute("height", 75);
+					img.setAttribute("src", "resources/noTeam.png");
+					img.setAttribute("style", imgStyle);
+					images.appendChild(img);
 		}
 	}
 }
+console.log(document.body.style.backgroundColor);
+
+var backgroundToggle = false;
+document.body.addEventListener("click", function(){
+		if(backgroundToggle === true){
+			document.body.style.backgroundColor = "#C41720";
+			backgroundToggle = false;
+		} else {
+			document.body.style.backgroundColor = "#0065B3";
+			backgroundToggle = true;
+		}
+	});
 
 
 
