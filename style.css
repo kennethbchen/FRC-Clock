@@ -1,6 +1,7 @@
 body {
     background-color: #0065B3;
 }
+
 h1 {
     color: white;
     text-align: center;
@@ -23,4 +24,55 @@ h2 {
     color:white;
     text-align: center;
     font-family:sans-serif;
+    vertical-align: center;
 }
+
+.pikachu {
+    height: 75px;
+    border: 3px solid #C41720; 
+    border-radius: 5px; 
+    margin: 4px;
+}
+
+.pikachuInvert {
+    height: 75px;
+    border: 3px solid #0065B3; 
+    border-radius: 5px; 
+    margin: 4px;
+}
+
+.imgStyle {
+    height: 500px;
+    border: 3px solid #C41720; 
+    border-radius: 5px; 
+    margin: 4px;
+}
+
+.imgStyleInvert {
+    height: 500px;
+    border: 3px solid #0065B3; 
+    border-radius: 5px; 
+    margin: 4px;
+}
+
+.videoStyle {
+    border: 3px solid #C41720; 
+    border-radius: 5px; 
+    margin: 4px;
+}
+
+.videoStyleInvert {
+    border: 3px solid #0065B3; 
+    border-radius: 5px; 
+    margin: 4px;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+  }

@@ -1,8 +1,8 @@
 const apiKey = "vFH9oG43F0qZFQCGWOGIhXe53yDLf0qZVeg0EjfYrSzEiNbSZYBNXZzNLj8JKtiL"; //Very unsafe
 const baseURL = "https://www.thebluealliance.com/api/v3";
+const cdBase = "https://www.chiefdelphi.com/media/img/";
 const teamURL = "/team/frc";
 const mediaURL = "/media/2018";
-const cdBase = "https://www.chiefdelphi.com/media/img/";
 const imgurBase = "https://i.imgur.com/";
 const youtubeBase = "https://youtube.com/embed/";
 const avatarBase = "data:image/png;base64,";
@@ -14,7 +14,11 @@ const twelveTimeHeader = document.getElementById("12HrTime")
 const teamDataHeader = document.getElementById("data");
 const images = document.getElementById("images");
 
-const imgStyle = ("border: 3px solid #C41720; border-radius: 5px; margin: 4px;");
+const FRCBlue = "#0065B3";
+const FRCRed = "#C41720";
+
+var backgroundToggle = false;
+
 
 timeHeader.innerHTML = getTime();
 var time = getTime() + " ";
@@ -65,6 +69,16 @@ function setTime(){
 
 }
 
+function parseTime(){
+	var time = getTime();
+	if(time.length == 4){
+		team = getTime().substring(0,1) + getTime().substring(2);
+	} else {
+		team = getTime().substring(0,2) + getTime().substring(3,5);
+	}
+	return removeTrailingZeros(team);
+}
+
 function removeTrailingZeros(value){
 	if(value[0] === "0"){
 		return removeTrailingZeros(value.substring(1));
@@ -73,25 +87,59 @@ function removeTrailingZeros(value){
 	}
 }
 
+function invertColors(){
+	var images = document.querySelectorAll(".imgStyle");
+	var imagesInv = document.querySelectorAll(".imgStyleInvert");
+
+		images.forEach(element => {
+			element.setAttribute("class", "imgStyleInvert");
+		});
+
+		imagesInv.forEach(element => {
+			element.setAttribute("class", "imgStyle");
+	});
+
+
+	var video = document.querySelectorAll(".videoStyle");
+	var videoInv = document.querySelectorAll(".videoStyleInvert");
+	video.forEach(element => {
+		element.setAttribute("class", "videoStyleInvert");
+	});
+
+	videoInv.forEach(element => {
+		element.setAttribute("class", "videoStyle");
+	});
+
+	var pikachu = document.querySelectorAll(".pikachu");
+	var pikachuInv = document.querySelectorAll(".pikachuInvert");
+
+	console.log("pikachu " + pikachu);
+	console.log("pikachu inv " + pikachuInv);
+
+	pikachu.forEach(element => {
+		element.setAttribute("class", "pikachuInvert");
+	});
+	pikachuInv.forEach(element => {
+		element.setAttribute("class", "pikachu");
+	});
+}
+
+
 setInterval(function(){
 	twelveTimeHeader.innerHTML = getTwelveTime();	
 	if(getTime() != time){
 		time = getTime();
-		if(time.length == 4){
-			team = getTime().substring(0,1) + getTime().substring(2);
-		} else {
-			team = getTime().substring(0,2) + getTime().substring(3,5);
-		}
-
-		team = removeTrailingZeros(team);
-
+		
+		team = parseTime();
+		
 		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
 		getTeam(url);
 
-		url = baseURL + teamURL + team + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
-		console.log(url);
+		url = baseURL + teamURL + 1337 + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
 		getMedia(url);
-		
+
+		console.log(url);
+
 	}
 }, 1000);
 
@@ -106,8 +154,12 @@ teamHTTP.onreadystatechange = function(){
 			city = "";
 			state = " from " + obj.state_prov;
 		}
+
+		if(state.includes(null)){
+			state = "";
+		}
 		
-		setTimeWithTeam(getTime(), obj.nickname + city + state);
+		setTimeWithTeam( getTime(), obj.nickname + city + state);
 		
 	} else {
 		setTime();
@@ -123,54 +175,60 @@ mediaHTTP.onreadystatechange = function(){
 	
 			for(var i = 0; i < obj.length; i++){
 				if(obj[i].type === "avatar"){
+
 					var img = document.createElement("img");
-					img.setAttribute("id", "avatar");
-					img.setAttribute("src", avatarBase + obj[i].details.base64Image);
-					teamDataHeader.appendChild(img);
+					var temp = teamDataHeader.innerHTML;
+					img.setAttribute("src", avatarBase + obj[i].details.base64Image); 
+					teamDataHeader.innerHTML = "";
+					teamDataHeader.innerHTML = "<img src =" + img.src + "> " + temp + " <img src =" + img.src + ">";
+
 				} else if(obj[i].type === "imgur"){
+
 					var img = document.createElement("img");
-					img.setAttribute("id", "imgur" + i);
-					img.setAttribute("height", 300);
 					img.setAttribute("src", imgurBase + obj[i].foreign_key + ".png");
-					img.setAttribute("style", imgStyle);
+					img.setAttribute("class", "imgStyle");
+					img.setAttribute("alt", "imgur image");
 					images.appendChild(img);
+
 				} else if(obj[i].type === "cdphotothread") {
+
 					var img = document.createElement("img");
-					img.setAttribute("id", "chief" + i);
-					img.setAttribute("height", 300);
 					img.setAttribute("src", cdBase + obj[i].details.image_partial);
-					img.setAttribute("style", imgStyle);
+					img.setAttribute("class", "imgStyle");
+					img.setAttribute("alt", "Chief Delphi image");
+
 					images.appendChild(img);
+
 				} else if(obj[i].type === "youtube"){
+
 					var vid = document.createElement("iframe");
-					vid.setAttribute("id", "you"+1);
-					vid.setAttribute("height", 300);
 					vid.setAttribute("src", youtubeBase + obj[i].foreign_key);
-					vid.setAttribute("style", imgStyle);
+					vid.setAttribute("class", "videoStyle");
 					images.appendChild(vid);
+
 				}
 
 
 			}
+
 		} else {
-			images.innerHTML = "No Imgur or Chief Delphi Images Found";
-			var img = document.createElement("img");
-					img.setAttribute("id", "pikachu");
-					img.setAttribute("height", 75);
-					img.setAttribute("src", "resources/noTeam.png");
-					img.setAttribute("style", imgStyle);
-					images.appendChild(img);
+				images.innerHTML = "No media found";
+				var img = document.createElement("img");
+				img.setAttribute("class", "pikachu");
+				img.setAttribute("src", "resources/noteam.png");
+				images.appendChild(img);
 		}
 	}
 }
 
-var backgroundToggle = false;
 document.body.addEventListener("click", function(){
 		if(backgroundToggle === true){
-			document.body.style.backgroundColor = "#C41720";
+			document.body.style.backgroundColor = FRCBlue;
+			invertColors();
 			backgroundToggle = false;
 		} else {
-			document.body.style.backgroundColor = "#0065B3";
+			document.body.style.backgroundColor = FRCRed;
+			invertColors();
 			backgroundToggle = true;
 		}
 	});
