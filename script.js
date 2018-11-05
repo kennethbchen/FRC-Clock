@@ -212,7 +212,7 @@ mediaHTTP.onreadystatechange = function(){
 			}
 
 		} else {
-				images.innerHTML = "No media found";
+				images.innerHTML = "No media found <br>";
 				var img = document.createElement("img");
 				img.setAttribute("class", "pikachu");
 				img.setAttribute("src", "resources/noteam.png");
