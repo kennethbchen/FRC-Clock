@@ -88,7 +88,7 @@ setInterval(function(){
 		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
 		getTeam(url);
 
-		url = baseURL + teamURL + 1433 + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
+		url = baseURL + teamURL + team + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
 		console.log(url);
 		getMedia(url);
 		
@@ -160,7 +160,6 @@ mediaHTTP.onreadystatechange = function(){
 		}
 	}
 }
-console.log(document.body.style.backgroundColor);
 
 var backgroundToggle = false;
 document.body.addEventListener("click", function(){
