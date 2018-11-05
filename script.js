@@ -1,10 +1,11 @@
 const apiKey = "vFH9oG43F0qZFQCGWOGIhXe53yDLf0qZVeg0EjfYrSzEiNbSZYBNXZzNLj8JKtiL"; //Very unsafe
 const baseURL = "https://www.thebluealliance.com/api/v3";
 const teamURL = "/team/frc";
-const mediaURL = "/media/2018"
+const mediaURL = "/media/2018";
 const cdBase = "https://www.chiefdelphi.com/media/img/";
-const imgurBase = "https://i.imgur.com/"
-const youtubeBase = "https://youtube.com/embed/"
+const imgurBase = "https://i.imgur.com/";
+const youtubeBase = "https://youtube.com/embed/";
+const avatarBase = "data:image/png;base64,";
 const teamHTTP = new XMLHttpRequest();
 const mediaHTTP = new XMLHttpRequest();
 
@@ -13,7 +14,7 @@ const twelveTimeHeader = document.getElementById("12HrTime")
 const teamDataHeader = document.getElementById("data");
 const images = document.getElementById("images");
 
-const imgStyle = ("border: 3px solid #C41720; border-radius: 5px; margin: 4px;"); //ED1B24
+const imgStyle = ("border: 3px solid #C41720; border-radius: 5px; margin: 4px;");
 
 timeHeader.innerHTML = getTime();
 var time = getTime() + " ";
@@ -22,16 +23,15 @@ var team;
 function getTeam(url){
 	teamHTTP.open("GET", url);
 	teamHTTP.send();
-	
-	
 }
+
 function getMedia(url){
 	mediaHTTP.open("GET", url);
 	mediaHTTP.send();
 }
 
 
-function getTime()  {
+function getTime() {
 	var d = new Date();
 	var hours = d.getHours();
 	var minutes = d.getMinutes();
@@ -122,8 +122,12 @@ mediaHTTP.onreadystatechange = function(){
 		if(obj.length > 0){
 	
 			for(var i = 0; i < obj.length; i++){
-				
-				if(obj[i].type === "imgur"){
+				if(obj[i].type === "avatar"){
+					var img = document.createElement("img");
+					img.setAttribute("id", "avatar");
+					img.setAttribute("src", avatarBase + obj[i].details.base64Image);
+					teamDataHeader.appendChild(img);
+				} else if(obj[i].type === "imgur"){
 					var img = document.createElement("img");
 					img.setAttribute("id", "imgur" + i);
 					img.setAttribute("height", 300);
@@ -138,7 +142,6 @@ mediaHTTP.onreadystatechange = function(){
 					img.setAttribute("style", imgStyle);
 					images.appendChild(img);
 				} else if(obj[i].type === "youtube"){
-					console.log(youtubeBase + obj[i].foreign_key);
 					var vid = document.createElement("iframe");
 					vid.setAttribute("id", "you"+1);
 					vid.setAttribute("height", 300);
