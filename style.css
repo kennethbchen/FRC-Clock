@@ -59,12 +59,18 @@ h2 {
     border: 3px solid #C41720; 
     border-radius: 5px; 
     margin: 4px;
+    width: "1280";
+    height: "720";
+    
 }
 
 .videoStyleInvert {
     border: 3px solid #0065B3; 
     border-radius: 5px; 
     margin: 4px;
+    width: "1280";
+    height: "720";
+   
 }
 
 .noselect {

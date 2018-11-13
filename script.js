@@ -66,6 +66,7 @@ function setTimeWithTeam(teamData,localeData){
 function setTime(){
 	timeHeader.innerHTML = getTime();
 	teamDataHeader.innerHTML = "No team found :(";
+	images.innerHTML = "";
 
 }
 
@@ -102,6 +103,8 @@ function invertColors(){
 
 	var video = document.querySelectorAll(".videoStyle");
 	var videoInv = document.querySelectorAll(".videoStyleInvert");
+	console.log("video " + video.length);
+	console.log("inv " + videoInv.length);
 	video.forEach(element => {
 		element.setAttribute("class", "videoStyleInvert");
 	});
@@ -113,8 +116,6 @@ function invertColors(){
 	var pikachu = document.querySelectorAll(".pikachu");
 	var pikachuInv = document.querySelectorAll(".pikachuInvert");
 
-	console.log("pikachu " + pikachu);
-	console.log("pikachu inv " + pikachuInv);
 
 	pikachu.forEach(element => {
 		element.setAttribute("class", "pikachuInvert");
