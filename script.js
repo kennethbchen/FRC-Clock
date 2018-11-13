@@ -103,8 +103,6 @@ function invertColors(){
 
 	var video = document.querySelectorAll(".videoStyle");
 	var videoInv = document.querySelectorAll(".videoStyleInvert");
-	console.log("video " + video.length);
-	console.log("inv " + videoInv.length);
 	video.forEach(element => {
 		element.setAttribute("class", "videoStyleInvert");
 	});
