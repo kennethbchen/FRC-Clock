@@ -66,8 +66,6 @@ function setTimeWithTeam(teamData,localeData){
 function setTime(){
 	timeHeader.innerHTML = getTime();
 	teamDataHeader.innerHTML = "No team found :(";
-	images.innerHTML = "";
-
 }
 
 function parseTime(){
@@ -211,6 +209,7 @@ mediaHTTP.onreadystatechange = function(){
 			}
 
 		} else {
+				images.innerHTML = "";
 				images.innerHTML = "No media found <br>";
 				var img = document.createElement("img");
 				img.setAttribute("class", "pikachu");
