@@ -73,6 +73,10 @@ h2 {
    
 }
 
+.avatarStyle {    
+    width:auto;       
+}
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -82,3 +86,226 @@ h2 {
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
   }
+
+    @media only screen and (max-width: 700px) {
+    h1 {
+        color: white;
+        text-align: center;
+        font-family:sans-serif;
+        font-size:200px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        color: white;
+        text-align: center;
+        font-family:sans-serif;
+        font-size: 40px;
+        margin: 30px;
+    }  
+
+    .imgStyle {
+        height: 300px;
+        border: 3px solid #C41720; 
+        border-radius: 5px; 
+        margin: 4px;
+    }
+
+    .imgStyleInvert {
+        height: 300px;
+        border: 3px solid #0065B3; 
+        border-radius: 5px; 
+        margin: 4px;
+    }
+
+    .videoStyle {
+        border: 3px solid #C41720; 
+        border-radius: 5px; 
+        margin: 4px;
+        width: "1280";
+        height: "720";
+        
+    }
+    
+    .videoStyleInvert {
+        border: 3px solid #0065B3; 
+        border-radius: 5px; 
+        margin: 4px;
+        width: "1280";
+        height: "720";
+       
+    }
+
+    .avatarStyle {
+        width: 35px;
+    }
+}
+
+    @media only screen and (max-width: 520px) {
+    h1 {
+        color: white;
+        text-align: center;
+        font-family:sans-serif;
+        font-size:150px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        color: white;
+        text-align: center;
+        font-family:sans-serif;
+        font-size: 30px;
+        margin: 30px;
+    }  
+
+    .imgStyle {
+        height: 350px;
+        border: 3px solid #C41720; 
+        border-radius: 5px; 
+        margin: 4px;
+    }
+
+    .imgStyleInvert {
+        height: 350px;
+        border: 3px solid #0065B3; 
+        border-radius: 5px; 
+        margin: 4px;
+    }
+
+    .videoStyle {
+        border: 3px solid #C41720; 
+        border-radius: 5px; 
+        margin: 4px;
+        width: "1280";
+        height: "720";
+        
+    }
+    
+    .videoStyleInvert {
+        border: 3px solid #0065B3; 
+        border-radius: 5px; 
+        margin: 4px;
+        width: "1280";
+        height: "720";
+       
+    }
+
+    .avatarStyle {
+        width: 25px;
+    }
+
+    
+}
+
+    @media only screen and (max-width: 450px) {
+    h1 {
+        color: white;
+        text-align: center;
+        font-family:sans-serif;
+        font-size:100px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        color: white;
+        text-align: center;
+        font-family:sans-serif;
+        font-size: 25px;
+        margin: 30px;
+    }  
+
+    .imgStyle {
+        height: 300px;
+        border: 3px solid #C41720; 
+        border-radius: 5px; 
+        margin: 4px;
+    }
+
+    .imgStyleInvert {
+        height: 300px;
+        border: 3px solid #0065B3; 
+        border-radius: 5px; 
+        margin: 4px;
+    }
+
+    .videoStyle {
+        border: 3px solid #C41720; 
+        border-radius: 5px; 
+        margin: 4px;
+        width: "1280";
+        height: "720";
+        
+    }
+    
+    .videoStyleInvert {
+        border: 3px solid #0065B3; 
+        border-radius: 5px; 
+        margin: 4px;
+        width: "1280";
+        height: "720";
+       
+    }
+
+    .avatarStyle {
+        width: 25px;
+    }
+
+}
+
+    @media only screen and (max-width: 300px) {
+        h1 {
+            color: white;
+            text-align: center;
+            font-family:sans-serif;
+            font-size:70px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+    
+        h2 {
+            color: white;
+            text-align: center;
+            font-family:sans-serif;
+            font-size: 15px;
+            margin: 30px;
+        }  
+    
+        .imgStyle {
+            height: 200px;
+            border: 3px solid #C41720; 
+            border-radius: 5px; 
+            margin: 4px;
+        }
+    
+        .imgStyleInvert {
+            height: 200px;
+            border: 3px solid #0065B3; 
+            border-radius: 5px; 
+            margin: 4px;
+        }
+    
+        .videoStyle {
+            border: 3px solid #C41720; 
+            border-radius: 5px; 
+            margin: 4px;
+            width: "1280";
+            height: "720";
+            
+        }
+        
+        .videoStyleInvert {
+            border: 3px solid #0065B3; 
+            border-radius: 5px; 
+            margin: 4px;
+            width: "1280";
+            height: "720";
+           
+        }
+
+        .avatarStyle {
+            width: 15px;
+        }
+    }

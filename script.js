@@ -129,10 +129,10 @@ setInterval(function(){
 		
 		team = parseTime();
 		
-		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
+		var url = baseURL + teamURL + 2152 + '?X-TBA-Auth-Key=' + apiKey;
 		getTeam(url);
 
-		url = baseURL + teamURL + team + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
+		url = baseURL + teamURL + 2152 + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
 		getMedia(url);
 
 		console.log(url);
@@ -174,10 +174,14 @@ mediaHTTP.onreadystatechange = function(){
 				if(obj[i].type === "avatar"){
 
 					var img = document.createElement("img");
-					var temp = teamDataHeader.innerHTML;
 					img.setAttribute("src", avatarBase + obj[i].details.base64Image); 
+					img.setAttribute("class", "avatarStyle");
+
+					var temp = teamDataHeader.innerHTML;
 					teamDataHeader.innerHTML = "";
-					teamDataHeader.innerHTML = "<img src =" + img.src + "> " + temp + " <img src =" + img.src + ">";
+					teamDataHeader.appendChild(img);
+					teamDataHeader.innerHTML += temp;
+					teamDataHeader.appendChild(img);
 
 				} else if(obj[i].type === "imgur"){
 
