@@ -129,10 +129,10 @@ setInterval(function(){
 		
 		team = parseTime();
 		
-		var url = baseURL + teamURL + 2152 + '?X-TBA-Auth-Key=' + apiKey;
+		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
 		getTeam(url);
 
-		url = baseURL + teamURL + 2152 + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
+		url = baseURL + teamURL + team + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
 		getMedia(url);
 
 		console.log(url);
