@@ -224,14 +224,14 @@ mediaHTTP.onreadystatechange = function(){
 }
 
 document.body.addEventListener("click", function(){
-		if(backgroundToggle === true){
-			document.body.style.backgroundColor = FRCBlue;
-			invertColors();
-			backgroundToggle = false;
-		} else {
+		if(backgroundToggle === false){
 			document.body.style.backgroundColor = FRCRed;
 			invertColors();
 			backgroundToggle = true;
+		} else {
+			document.body.style.backgroundColor = FRCBlue;
+			invertColors();
+			backgroundToggle = false;
 		}
 	});
 
