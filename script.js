@@ -1,8 +1,8 @@
-const apiKey = "vFH9oG43F0qZFQCGWOGIhXe53yDLf0qZVeg0EjfYrSzEiNbSZYBNXZzNLj8JKtiL"; //Very unsafe
+const apiKey = "vFH9oG43F0qZFQCGWOGIhXe53yDLf0qZVeg0EjfYrSzEiNbSZYBNXZzNLj8JKtiL"; // Please dont steal
 const baseURL = "https://www.thebluealliance.com/api/v3";
 const cdBase = "https://www.chiefdelphi.com/media/img/";
 const teamURL = "/team/frc";
-const mediaURL = "/media/2019";
+const mediaURL = "/media/";
 const imgurBase = "https://i.imgur.com/";
 const youtubeBase = "https://youtube.com/embed/";
 const avatarBase = "data:image/png;base64,";
@@ -51,6 +51,12 @@ function getTime() {
 	}
 	
   }
+
+function getCurrentYear(){
+	var d = new Date();
+	var year = d.getFullYear();
+	return year;
+}
 
 function getTwelveTime(){
 	var d = new Date();
@@ -123,6 +129,7 @@ function invertColors(){
 
 
 setInterval(function(){
+	
 	twelveTimeHeader.innerHTML = getTwelveTime();	
 	if(getTime() != time){
 		time = getTime();
@@ -131,12 +138,11 @@ setInterval(function(){
 		
 		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
 		getTeam(url);
-
-		url = baseURL + teamURL + team + mediaURL + '?X-TBA-Auth-Key=' + apiKey;
-		getMedia(url);
-
 		console.log(url);
 
+		url = baseURL + teamURL + team + mediaURL + getCurrentYear() + '?X-TBA-Auth-Key=' + apiKey;
+		getMedia(url);
+		console.log(url);
 	}
 }, 1000);
 
