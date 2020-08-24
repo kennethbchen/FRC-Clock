@@ -1,5 +1,5 @@
 # FRC-Clock
-kennethbchen.github.io/frc-clock/
+https://kennethbchen.github.io/FRC-Clock/
 
 Displays the current time in FRC teams
 Uses The Blue Alliance's API
