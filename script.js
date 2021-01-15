@@ -1,3 +1,4 @@
+// Value Constants
 const apiKey = "vFH9oG43F0qZFQCGWOGIhXe53yDLf0qZVeg0EjfYrSzEiNbSZYBNXZzNLj8JKtiL"; // Please dont steal
 const baseURL = "https://www.thebluealliance.com/api/v3";
 const cdBase = "https://www.chiefdelphi.com/media/img/";
@@ -9,90 +10,119 @@ const avatarBase = "data:image/png;base64,";
 const teamHTTP = new XMLHttpRequest();
 const mediaHTTP = new XMLHttpRequest();
 
+// HTML Element Constants
 const timeHeader = document.getElementById("24HrTime");
 const twelveTimeHeader = document.getElementById("12HrTime")
 const teamDataHeader = document.getElementById("data");
-const images = document.getElementById("images");
+const media = document.getElementById("images");
 
 const FRCBlue = "#0065B3";
 const FRCRed = "#C41720";
 
+// Variables
 var backgroundToggle = false;
 
-
-timeHeader.innerHTML = getTime();
-var time = getTime() + " ";
+var lastRecordedTime = getTime() + " ";
 var team;
 
-function getTeam(url){
+//
+timeHeader.innerHTML = getTime();
+
+
+
+function getTeam(url) {
 	teamHTTP.open("GET", url);
 	teamHTTP.send();
 }
 
-function getMedia(url){
+function getMedia(url) {
 	mediaHTTP.open("GET", url);
 	mediaHTTP.send();
 }
 
-
+// Gives a string that represents the current time in 24-hour HH:MM format
 function getTime() {
 	var d = new Date();
+
+	// Get the date and record the hours and minutes
 	var hours = d.getHours();
 	var minutes = d.getMinutes();
+
+	// If the minutes is less than 10, it will be a single digit value
+	// Add in a leading zero
+	// For example, 9 -> 09
 	if(minutes < 10){
 		minutes = "0" + minutes;
 	}
-	var parse = hours + ":" + minutes;
 
-	if(parse.lastIndexOf(":") === 4){
-		return (parse.substring(0,4));
+	// Assemble the output in the form HH:MM
+	var output = hours + ":" + minutes;
+
+	// I don't actually know why this part exists
+	if(output.lastIndexOf(":") === 4){
+		return (output.substring(0,4));
 	} else {
-		return (parse.substring(0,5));
+		return (output.substring(0,5));
 	}
 	
   }
 
-function getCurrentYear(){
-	var d = new Date();
-	var year = d.getFullYear();
-	return year;
-}
-
-function getTwelveTime(){
+// Gives a string that represents the time in 12-hour format
+function getTwelveTime() {
 	var d = new Date();
 
 	return d.toLocaleTimeString();
 }
 
-function setTimeWithTeam(teamData,localeData){
-	timeHeader.innerHTML = teamData;
-	teamDataHeader.innerHTML = localeData;
+// Gives a number that represents the current year
+function getCurrentYear() {
+	var d = new Date();
+	var year = d.getFullYear();
+	return year;
 }
 
-function setTime(){
+// Function that sets the appropriate HTML elements to represent the time if there
+// Is no valid team with the current time
+function setTime() {
 	timeHeader.innerHTML = getTime();
 	teamDataHeader.innerHTML = "No team found :(";
 }
 
-function parseTime(){
-	var time = getTime();
-	if(time.length == 4){
-		team = getTime().substring(0,1) + getTime().substring(2);
-	} else {
-		team = getTime().substring(0,2) + getTime().substring(3,5);
-	}
-	return removeTrailingZeros(team);
+// Function that sets the appropriate HTML elements to represent the time if there
+// is a valid team with the current time
+function setTeamTime(teamData,localeData){
+	timeHeader.innerHTML = teamData;
+	teamDataHeader.innerHTML = localeData;
 }
 
-function removeTrailingZeros(value){
+
+// Gives a number that represents an FRC team number that was created from the current 24-hour time
+// In the format XXXX
+function parseTime() {
+	var time = getTime();
+	
+	if(time.length == 4){
+		team = time.substring(0,1) + time.substring(2);
+	} else {
+		team = time.substring(0,2) + time.substring(3,5);
+	}
+
+	// In 24-hour time, the time can have a number of leading zeroes
+	// For example, 0001, 0004, 0005
+	// These can be valid teams, but we need to remove the leading zeroes for the API call
+	return removeLeadingZeros(team);
+}
+
+// Recursive function that removes all of the leading zeroes of a number
+function removeLeadingZeros(value) {
 	if(value[0] === "0"){
-		return removeTrailingZeros(value.substring(1));
+		return removeLeadingZeros(value.substring(1));
 	} else {
 		return value;
 	}
 }
 
-function invertColors(){
+function invertColors() {
 	var images = document.querySelectorAll(".imgStyle");
 	var imagesInv = document.querySelectorAll(".imgStyleInvert");
 
@@ -127,57 +157,94 @@ function invertColors(){
 	});
 }
 
-
+// Function that is called at every second to track the time
 setInterval(function(){
 	
-	twelveTimeHeader.innerHTML = getTwelveTime();	
-	if(getTime() != time){
-		time = getTime();
+	// Update the 12-hour time display
+	// It is not used in any calculations
+	twelveTimeHeader.innerHTML = getTwelveTime();
+
+	// If the current time has changed, then update
+	if(getTime() != lastRecordedTime){
+		lastRecordedTime = getTime();
 		
 		team = parseTime();
 		
+		// Assemble and send the url request for team information
 		var url = baseURL + teamURL + team + '?X-TBA-Auth-Key=' + apiKey;
 		getTeam(url);
-		console.log(url);
 
+		// Assemble and send the url request for media information
 		url = baseURL + teamURL + team + mediaURL + getCurrentYear() + '?X-TBA-Auth-Key=' + apiKey;
 		getMedia(url);
-		console.log(url);
-	}
-}, 1000);
 
-teamHTTP.onreadystatechange = function(){
-	if(this.readyState == 4 && this.status==200){
+	}
+}, 1000); // 1000ms = 1s
+
+// Event handler for when the team API request is returned
+teamHTTP.onreadystatechange = function() {
+
+	// Ready state 4 means the request is DONE
+	// Status 200 means the HTTP request was OK
+	// If the request was successful, process the data
+	if(this.readyState == 4 && this.status== 200){
+		// Store the response which is in JSON format
 		var response = teamHTTP.responseText.toString();
-		var obj = JSON.parse(response);
+
+		// Convert the JSON reponse to a JS Object
+		var requestData = JSON.parse(response);
 		
-		var city = " from " + obj.city + ", ";
-		var state = obj.state_prov;
+		// The team data includes city and province.
+		// Sometimes the city and state are null, so handle this situation
+
+		var city = " from " + requestData.city + ", ";
+		var state = requestData.state_prov;
+		
 		if(city.includes(null)){
 			city = "";
-			state = " from " + obj.state_prov;
+			state = " from " + requestData.state_prov;
 		}
 
 		if(state.includes(null)){
 			state = "";
 		}
 		
-		setTimeWithTeam( getTime(), obj.nickname + city + state);
+		// Update the display with the team information
+		setTeamTime( getTime(), requestData.nickname + city + state);
 		
 	} else {
+
+		// If the reponse was not successful or there was no team found
 		setTime();
 	}
 }
 
-mediaHTTP.onreadystatechange = function(){
+// Event handler for when the media API request is returned
+mediaHTTP.onreadystatechange = function() {
+
+	// Ready state 4 means the request is DONE
+	// Status 200 means the HTTP request was OK
+	// If the request was successful, process the data
 	if(this.readyState == 4 && this.status==200){
+		// Store the response which is in JSON format
 		var response = mediaHTTP.responseText.toString();
+
+		// Convert the JSON reponse to a JS Object
 		var obj = JSON.parse(response);
-		images.innerHTML = "";
+
+		// Clear the innerHTML of the media element
+		media.innerHTML = "";
+
+		// If there is recorded media
 		if(obj.length > 0){
 	
-			for(var i = 0; i < obj.length; i++){
+			// Go through all media
+			for(var i = 0; i < obj.length; i++) {
+				
+				// The media can take different forms, handle each case
+
 				if(obj[i].type === "avatar"){
+					// Team Avatar Icon
 
 					var img = document.createElement("img");
 					img.setAttribute("src", avatarBase + obj[i].details.base64Image); 
@@ -190,28 +257,31 @@ mediaHTTP.onreadystatechange = function(){
 					teamDataHeader.appendChild(img);
 
 				} else if(obj[i].type === "imgur"){
+					// Imgur Link
 
 					var img = document.createElement("img");
 					img.setAttribute("src", imgurBase + obj[i].foreign_key + ".png");
 					img.setAttribute("class", "imgStyle");
 					img.setAttribute("alt", "imgur image");
-					images.appendChild(img);
+					media.appendChild(img);
 
 				} else if(obj[i].type === "cdphotothread") {
+					// Chief Delphi Photo Thread
 
 					var img = document.createElement("img");
 					img.setAttribute("src", cdBase + obj[i].details.image_partial);
 					img.setAttribute("class", "imgStyle");
 					img.setAttribute("alt", "Chief Delphi image");
 
-					images.appendChild(img);
+					media.appendChild(img);
 
 				} else if(obj[i].type === "youtube"){
+					// YouTube Video
 
 					var vid = document.createElement("iframe");
 					vid.setAttribute("src", youtubeBase + obj[i].foreign_key);
 					vid.setAttribute("class", "videoStyle");
-					images.appendChild(vid);
+					media.appendChild(vid);
 
 				}
 
@@ -219,16 +289,18 @@ mediaHTTP.onreadystatechange = function(){
 			}
 
 		} else {
-				images.innerHTML = "";
-				images.innerHTML = "No media found <br>";
+			// If there is no media found
+				media.innerHTML = "";
+				media.innerHTML = "No media found <br>";
 				var img = document.createElement("img");
 				img.setAttribute("class", "pikachu");
 				img.setAttribute("src", "resources/noteam.png");
-				images.appendChild(img);
+				media.appendChild(img);
 		}
 	}
 }
 
+// Click Listener to invert the colors
 document.body.addEventListener("click", function(){
 		if(backgroundToggle === true){
 			document.body.style.backgroundColor = FRCBlue;

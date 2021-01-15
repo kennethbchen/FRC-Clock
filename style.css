@@ -77,6 +77,14 @@ h2 {
     width:auto;       
 }
 
+.colorNormal {
+    border: 3px solid #C41720; 
+}
+
+.colorInvert {
+    border: 3px solid #0065B3; 
+}
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
