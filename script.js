@@ -216,6 +216,9 @@ teamHTTP.onreadystatechange = function() {
 
 		// If the reponse was not successful or there was no team found
 		setTime();
+
+		// Clear all Media in the media element
+		media.innerHTML = "";
 	}
 }
 
@@ -225,7 +228,7 @@ mediaHTTP.onreadystatechange = function() {
 	// Ready state 4 means the request is DONE
 	// Status 200 means the HTTP request was OK
 	// If the request was successful, process the data
-	if(this.readyState == 4 && this.status==200){
+	if(this.readyState == 4 && this.status == 200){
 		// Store the response which is in JSON format
 		var response = mediaHTTP.responseText.toString();
 
