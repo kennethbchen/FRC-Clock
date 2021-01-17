@@ -29,34 +29,29 @@ h2 {
 
 .pikachu {
     height: 75px;
-    border: 3px solid #C41720; 
     border-radius: 5px; 
     margin: 4px;
 }
 
 .pikachuInvert {
     height: 75px;
-    border: 3px solid #0065B3; 
     border-radius: 5px; 
     margin: 4px;
 }
 
 .imgStyle {
     height: 500px;
-    border: 3px solid #C41720; 
     border-radius: 5px; 
     margin: 4px;
 }
 
 .imgStyleInvert {
     height: 500px;
-    border: 3px solid #0065B3; 
     border-radius: 5px; 
     margin: 4px;
 }
 
 .videoStyle {
-    border: 3px solid #C41720; 
     border-radius: 5px; 
     margin: 4px;
     width: "1280";
@@ -65,7 +60,6 @@ h2 {
 }
 
 .videoStyleInvert {
-    border: 3px solid #0065B3; 
     border-radius: 5px; 
     margin: 4px;
     width: "1280";
@@ -115,20 +109,17 @@ h2 {
 
     .imgStyle {
         height: 300px;
-        border: 3px solid #C41720; 
         border-radius: 5px; 
         margin: 4px;
     }
 
     .imgStyleInvert {
         height: 300px;
-        border: 3px solid #0065B3; 
         border-radius: 5px; 
         margin: 4px;
     }
 
     .videoStyle {
-        border: 3px solid #C41720; 
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
@@ -137,7 +128,6 @@ h2 {
     }
     
     .videoStyleInvert {
-        border: 3px solid #0065B3; 
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
@@ -170,20 +160,17 @@ h2 {
 
     .imgStyle {
         height: 350px;
-        border: 3px solid #C41720; 
         border-radius: 5px; 
         margin: 4px;
     }
 
     .imgStyleInvert {
         height: 350px;
-        border: 3px solid #0065B3; 
         border-radius: 5px; 
         margin: 4px;
     }
 
     .videoStyle {
-        border: 3px solid #C41720; 
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
@@ -192,7 +179,6 @@ h2 {
     }
     
     .videoStyleInvert {
-        border: 3px solid #0065B3; 
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
@@ -227,20 +213,17 @@ h2 {
 
     .imgStyle {
         height: 300px;
-        border: 3px solid #C41720; 
         border-radius: 5px; 
         margin: 4px;
     }
 
     .imgStyleInvert {
         height: 300px;
-        border: 3px solid #0065B3; 
         border-radius: 5px; 
         margin: 4px;
     }
 
     .videoStyle {
-        border: 3px solid #C41720; 
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
@@ -249,7 +232,6 @@ h2 {
     }
     
     .videoStyleInvert {
-        border: 3px solid #0065B3; 
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
@@ -283,20 +265,17 @@ h2 {
     
         .imgStyle {
             height: 200px;
-            border: 3px solid #C41720; 
             border-radius: 5px; 
             margin: 4px;
         }
     
         .imgStyleInvert {
             height: 200px;
-            border: 3px solid #0065B3; 
             border-radius: 5px; 
             margin: 4px;
         }
     
         .videoStyle {
-            border: 3px solid #C41720; 
             border-radius: 5px; 
             margin: 4px;
             width: "1280";
@@ -305,7 +284,6 @@ h2 {
         }
         
         .videoStyleInvert {
-            border: 3px solid #0065B3; 
             border-radius: 5px; 
             margin: 4px;
             width: "1280";

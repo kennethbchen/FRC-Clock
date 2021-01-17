@@ -20,7 +20,7 @@ const FRCBlue = "#0065B3";
 const FRCRed = "#C41720";
 
 // Variables
-var backgroundToggle = false;
+var backgroundInvert = false;
 
 var lastRecordedTime = getTime() + " ";
 var team;
@@ -78,6 +78,7 @@ function getTwelveTime() {
 function getCurrentYear() {
 	var d = new Date();
 	var year = d.getFullYear();
+	
 	return year;
 }
 
@@ -122,39 +123,38 @@ function removeLeadingZeros(value) {
 	}
 }
 
+// Function that handles the process of inverting the colors of the webpage
 function invertColors() {
-	var images = document.querySelectorAll(".imgStyle");
-	var imagesInv = document.querySelectorAll(".imgStyleInvert");
+	var elements;
 
-		images.forEach(element => {
-			element.setAttribute("class", "imgStyleInvert");
-		});
+	// If the background is in the default state, then all elements that are affected by the toggle
+	// should have the class .colorNormal otherwise they have .colorInvert
+	// get all of these elements
+	
+	if ( backgroundInvert == false) {
+		elements = document.querySelectorAll(".colorNormal");
+	} else {
+		elements = document.querySelectorAll(".colorInvert");
+	}
 
-		imagesInv.forEach(element => {
-			element.setAttribute("class", "imgStyle");
+	// Toggle all of the element's classes so 
+	// they swap between colorNormal and colorInvert
+	elements.forEach(element => {
+		element.classList.toggle("colorNormal");
+		element.classList.toggle("colorInvert");
 	});
 
+}
 
-	var video = document.querySelectorAll(".videoStyle");
-	var videoInv = document.querySelectorAll(".videoStyleInvert");
-	video.forEach(element => {
-		element.setAttribute("class", "videoStyleInvert");
-	});
-
-	videoInv.forEach(element => {
-		element.setAttribute("class", "videoStyle");
-	});
-
-	var pikachu = document.querySelectorAll(".pikachu");
-	var pikachuInv = document.querySelectorAll(".pikachuInvert");
-
-
-	pikachu.forEach(element => {
-		element.setAttribute("class", "pikachuInvert");
-	});
-	pikachuInv.forEach(element => {
-		element.setAttribute("class", "pikachu");
-	});
+// Returns a string
+// colorNormal if backgroundInvert = false;
+// colorInvert if backgroundInvert = true;
+function getColorClassString() {
+	if(backgroundInvert == false) {
+		return "colorNormal";
+	} else {
+		return "colorInvert";
+	}
 }
 
 // Function that is called at every second to track the time
@@ -242,11 +242,13 @@ mediaHTTP.onreadystatechange = function() {
 			for(var i = 0; i < obj.length; i++) {
 				
 				// The media can take different forms, handle each case
-
+				
 				if(obj[i].type === "avatar"){
 					// Team Avatar Icon
 
+					/* Disabled for now
 					var img = document.createElement("img");
+					
 					img.setAttribute("src", avatarBase + obj[i].details.base64Image); 
 					img.setAttribute("class", "avatarStyle");
 
@@ -255,13 +257,15 @@ mediaHTTP.onreadystatechange = function() {
 					teamDataHeader.appendChild(img);
 					teamDataHeader.innerHTML += temp;
 					teamDataHeader.appendChild(img);
+					*/
+					
 
 				} else if(obj[i].type === "imgur"){
 					// Imgur Link
 
 					var img = document.createElement("img");
 					img.setAttribute("src", imgurBase + obj[i].foreign_key + ".png");
-					img.setAttribute("class", "imgStyle");
+					img.setAttribute("class", "imgStyle " + getColorClassString());
 					img.setAttribute("alt", "imgur image");
 					media.appendChild(img);
 
@@ -270,17 +274,17 @@ mediaHTTP.onreadystatechange = function() {
 
 					var img = document.createElement("img");
 					img.setAttribute("src", cdBase + obj[i].details.image_partial);
-					img.setAttribute("class", "imgStyle");
+					img.setAttribute("class", "imgStyle " + getColorClassString());
 					img.setAttribute("alt", "Chief Delphi image");
 
 					media.appendChild(img);
 
 				} else if(obj[i].type === "youtube"){
 					// YouTube Video
-
+					
 					var vid = document.createElement("iframe");
 					vid.setAttribute("src", youtubeBase + obj[i].foreign_key);
-					vid.setAttribute("class", "videoStyle");
+					vid.setAttribute("class", "videoStyle " + getColorClassString());
 					media.appendChild(vid);
 
 				}
@@ -288,12 +292,14 @@ mediaHTTP.onreadystatechange = function() {
 
 			}
 
+			
+
 		} else {
 			// If there is no media found
 				media.innerHTML = "";
 				media.innerHTML = "No media found <br>";
 				var img = document.createElement("img");
-				img.setAttribute("class", "pikachu");
+				img.setAttribute("class", "pikachu " + getColorClassString());
 				img.setAttribute("src", "resources/noteam.png");
 				media.appendChild(img);
 		}
@@ -302,14 +308,14 @@ mediaHTTP.onreadystatechange = function() {
 
 // Click Listener to invert the colors
 document.body.addEventListener("click", function(){
-		if(backgroundToggle === true){
+		if(backgroundInvert === true){
 			document.body.style.backgroundColor = FRCBlue;
 			invertColors();
-			backgroundToggle = false;
+			backgroundInvert = false;
 		} else {
 			document.body.style.backgroundColor = FRCRed;
 			invertColors();
-			backgroundToggle = true;
+			backgroundInvert = true;
 		}
 	});
 
