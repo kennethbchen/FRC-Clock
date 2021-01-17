@@ -14,7 +14,7 @@ const mediaHTTP = new XMLHttpRequest();
 const timeHeader = document.getElementById("24HrTime");
 const twelveTimeHeader = document.getElementById("12HrTime")
 const teamDataHeader = document.getElementById("data");
-const media = document.getElementById("images");
+const media = document.getElementById("media");
 
 const FRCBlue = "#0065B3";
 const FRCRed = "#C41720";

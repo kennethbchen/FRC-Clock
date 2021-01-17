@@ -19,7 +19,7 @@ h2 {
     margin: 30px;
 }   
 
-#images {
+#media {
     font-style:italic;
     color:white;
     text-align: center;
@@ -33,11 +33,6 @@ h2 {
     margin: 4px;
 }
 
-.pikachuInvert {
-    height: 75px;
-    border-radius: 5px; 
-    margin: 4px;
-}
 
 .imgStyle {
     height: 500px;
@@ -45,11 +40,6 @@ h2 {
     margin: 4px;
 }
 
-.imgStyleInvert {
-    height: 500px;
-    border-radius: 5px; 
-    margin: 4px;
-}
 
 .videoStyle {
     border-radius: 5px; 
@@ -57,14 +47,6 @@ h2 {
     width: "1280";
     height: "720";
     
-}
-
-.videoStyleInvert {
-    border-radius: 5px; 
-    margin: 4px;
-    width: "1280";
-    height: "720";
-   
 }
 
 .avatarStyle {    
@@ -113,12 +95,6 @@ h2 {
         margin: 4px;
     }
 
-    .imgStyleInvert {
-        height: 300px;
-        border-radius: 5px; 
-        margin: 4px;
-    }
-
     .videoStyle {
         border-radius: 5px; 
         margin: 4px;
@@ -126,14 +102,7 @@ h2 {
         height: "720";
         
     }
-    
-    .videoStyleInvert {
-        border-radius: 5px; 
-        margin: 4px;
-        width: "1280";
-        height: "720";
-       
-    }
+
 
     .avatarStyle {
         width: 35px;
@@ -164,26 +133,12 @@ h2 {
         margin: 4px;
     }
 
-    .imgStyleInvert {
-        height: 350px;
-        border-radius: 5px; 
-        margin: 4px;
-    }
-
     .videoStyle {
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
         height: "720";
         
-    }
-    
-    .videoStyleInvert {
-        border-radius: 5px; 
-        margin: 4px;
-        width: "1280";
-        height: "720";
-       
     }
 
     .avatarStyle {
@@ -217,26 +172,12 @@ h2 {
         margin: 4px;
     }
 
-    .imgStyleInvert {
-        height: 300px;
-        border-radius: 5px; 
-        margin: 4px;
-    }
-
     .videoStyle {
         border-radius: 5px; 
         margin: 4px;
         width: "1280";
         height: "720";
         
-    }
-    
-    .videoStyleInvert {
-        border-radius: 5px; 
-        margin: 4px;
-        width: "1280";
-        height: "720";
-       
     }
 
     .avatarStyle {
@@ -269,26 +210,12 @@ h2 {
             margin: 4px;
         }
     
-        .imgStyleInvert {
-            height: 200px;
-            border-radius: 5px; 
-            margin: 4px;
-        }
-    
         .videoStyle {
             border-radius: 5px; 
             margin: 4px;
             width: "1280";
             height: "720";
             
-        }
-        
-        .videoStyleInvert {
-            border-radius: 5px; 
-            margin: 4px;
-            width: "1280";
-            height: "720";
-           
         }
 
         .avatarStyle {
